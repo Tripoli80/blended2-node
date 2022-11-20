@@ -1,12 +1,16 @@
 const express = require("express");
+const { getAll, getById } = require("../controllers/employees");
+const wrapper = require("../helpers/wrapper");
+const { schemas } = require("../models/employees");
+const validator = require("../middlewares/validator")
 
 const employeesRouter = express.Router();
 
 
 
-employeesRouter.get ("/", (req, res) => res.sendStatus(290))
+employeesRouter.get ("/", wrapper(getAll))
 
-employeesRouter.get ("/:id", (req, res) => res.sendStatus(290))
+employeesRouter.get("/:id", validator.params(schemas.employeeId), wrapper(getById));
 
 employeesRouter.post ("/", (req, res) => res.sendStatus(290))
 
