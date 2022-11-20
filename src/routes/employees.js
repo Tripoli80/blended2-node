@@ -1,5 +1,12 @@
 const express = require("express");
-const { getAll, getById, add, update } = require("../controllers/employees");
+const {
+  getAll,
+  getById,
+  add,
+  update,
+  deleteEmployee,
+  updatePositionAndSalary,
+} = require("../controllers/employees");
 const wrapper = require("../helpers/wrapper");
 const { schemas } = require("../models/employees");
 const validator = require("../middlewares/validator");
@@ -23,8 +30,17 @@ employeesRouter.put(
   wrapper(update)
 );
 
-employeesRouter.delete("/:id", (req, res) => res.sendStatus(290));
+employeesRouter.delete(
+  "/:id",
+  validator.params(schemas.employeeId),
+  wrapper(deleteEmployee)
+);
 
-employeesRouter.patch("/:id", (req, res) => res.sendStatus(290));
+employeesRouter.patch(
+  "/:id/position&salary",
+  validator.params(schemas.employeeId),
+  validator.body(schemas.updatePositionAndSalary),
+  wrapper(updatePositionAndSalary)
+);
 
 module.exports = employeesRouter;

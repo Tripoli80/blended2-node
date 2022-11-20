@@ -1,4 +1,11 @@
-const { getAllS, getByIdS, addS, updateS } = require("../services/employees");
+const {
+  getAllS,
+  getByIdS,
+  addS,
+  updateS,
+  updatePosAndSalS,
+  deleteS,
+} = require("../services/employees");
 
 const getAll = async (req, res) => {
   const data = await getAllS();
@@ -22,4 +29,25 @@ const update = async (req, res) => {
     : res.status(404).json({ message: "Not found" });
 };
 
-module.exports = { getAll, getById, add, update };
+const deleteEmployee = async (req, res) => {
+  const deletedEmployee = await deleteS(req.params.id);
+  deletedEmployee
+    ? res.json({ deletedEmployee })
+    : res.status(404).json({ message: "Not found" });
+};
+
+const updatePositionAndSalary = async (req, res) => {
+  const updatedEmployee = await updatePosAndSalS(req.params.id, req.body);
+  updatedEmployee
+    ? res.json({ updatedEmployee })
+    : res.status(404).json({ message: "Not found" });
+};
+
+module.exports = {
+  getAll,
+  getById,
+  add,
+  update,
+  deleteEmployee,
+  updatePositionAndSalary,
+};

@@ -21,4 +21,26 @@ const updateS = async (id, body) => {
   });
   return updatedEmployee;
 };
-module.exports = { getAllS, getByIdS, addS, updateS };
+
+const deleteS = async (id) => {
+  const deletedEmployee = await Employee.findByIdAndDelete(id);
+
+  return deletedEmployee;
+};
+
+const updatePosAndSalS = async (id, body) => {
+  const updatedEmployee = await Employee.findByIdAndUpdate(id, body, {
+    new: true,
+  });
+
+  return updatedEmployee;
+};
+
+module.exports = {
+  getAllS,
+  getByIdS,
+  addS,
+  updateS,
+  deleteS,
+  updatePosAndSalS,
+};

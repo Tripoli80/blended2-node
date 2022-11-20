@@ -40,9 +40,15 @@ const updateEmployee = Joi.object({
   salary: Joi.number(),
 }).min(1);
 
+const updatePositionAndSalary = Joi.object({
+  position: Joi.string().required(),
+  salary: Joi.number().required(),
+});
+
 const schemas = {
   createEmployee,
   employeeId,
   updateEmployee,
+  updatePositionAndSalary,
 };
 module.exports = { Employee, schemas };
