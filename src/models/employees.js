@@ -17,6 +17,7 @@ const schemaEmployee = Schema({
   salary: {
     type: Number,
     default: 0,
+    index: true,
   },
 });
 
@@ -32,8 +33,16 @@ const employeeId = Joi.object({
   id: Joi.objectId().required(),
 });
 
+const updateEmployee = Joi.object({
+  name: Joi.string(),
+  surname: Joi.string(),
+  position: Joi.string(),
+  salary: Joi.number(),
+}).min(1);
+
 const schemas = {
   createEmployee,
   employeeId,
+  updateEmployee,
 };
 module.exports = { Employee, schemas };

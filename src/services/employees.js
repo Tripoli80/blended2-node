@@ -5,8 +5,20 @@ const getAllS = async () => {
   return data;
 };
 
-const getByIdS = async (id) => { 
-    const data = await Employee.findById(id);
-    return data
-}
-module.exports = { getAllS, getByIdS };
+const getByIdS = async (id) => {
+  const data = await Employee.findById(id);
+  return data;
+};
+
+const addS = async (data) => {
+  const newEmployee = await Employee.create(data);
+  return newEmployee;
+};
+
+const updateS = async (id, body) => {
+  const updatedEmployee = await Employee.findByIdAndUpdate(id, body, {
+    new: true,
+  });
+  return updatedEmployee;
+};
+module.exports = { getAllS, getByIdS, addS, updateS };
